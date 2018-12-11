@@ -13,7 +13,6 @@ const {
   GraphQLNonNull
 } = graphql;
 
-
 const BookType = new GraphQLObjectType({
   name: 'Book',
   fields: () => ({
@@ -53,8 +52,6 @@ const RootQuery = new GraphQLObjectType({
       type: BookType,
       args: {id: {type: GraphQLID}},
       resolve(parent, args) {
-        // code to get data from db / other source
-        // return _.find(books, {id: args.id});
         return  Book.findById(args.id);
       }
     },
@@ -62,21 +59,18 @@ const RootQuery = new GraphQLObjectType({
       type: AuthorType,
       args: {id: {type: GraphQLID }},
       resolve(parent, args) {
-        // return _.find(authors, {id: args.id});
         return Author.findById(args.id);
       }
     },
     books: {
       type: new GraphQLList(BookType),
       resolve(parent, args) {
-        // return books;
         return Book.find({});
       }
     },
     authors: {
       type: new GraphQLList(AuthorType),
       resolve(parent, args) {
-        // return authors;
         return Author.find({});
       }
     }
